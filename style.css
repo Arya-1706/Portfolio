@@ -51,9 +51,16 @@ body {
 .logo {
     font-size:- 1.6rem;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
-.logo span{
-    color: #ff7a18;
+
+.logo .name {
+  color: #ff7a18; /* your accent color */
+}
+
+.logo .role {
+  color: #ffffff;
+  opacity: 0.85;
 }
 
 /*Nav-Links*/
@@ -251,7 +258,7 @@ h2 {
 
 /*Sections*/
 section{
-    padding: 100px 40px;
+    padding: 80px 40px;
     position: relative;
     scroll-margin-top: 50px;
 }
@@ -483,8 +490,31 @@ section{
   background: rgba(255, 122, 24, 0.15);
   color: #ff7a18;
 }
+.project-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.github-icon {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+}
+.project-header a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+.github-icon:hover {
+  color: #fff;
+  transform: translateY(-2px) scale(1.05);
+}
+
 /* Links */
-.project-link a {
+/* .project-link a {
    display: inline-flex;
    margin-top: 15px;
    color:#fff;
@@ -496,8 +526,8 @@ section{
    transition: color 0.3s ease;
 }
 .project-links a:hover {
-  color: #ff7a18;
-}
+  color: #ff7a18; */
+/* } */
 
 /*Contacts*/
 .contact {
@@ -563,5 +593,17 @@ section{
   font-size: 0.9rem;
   color: #777;
 }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 
