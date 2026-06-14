@@ -232,7 +232,7 @@ body {
   box-shadow: 0 0 80px rgba(255, 122, 24, 0.6);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .hero-content {
     grid-template-columns: 1fr;
     text-align: center;
