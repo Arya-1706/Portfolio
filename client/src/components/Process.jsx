@@ -22,19 +22,19 @@ export default function Process() {
 
       <ol className="border-t border-burgundy/40">
         {steps.map(([num, title, text], i) => (
-            <li key={num} className="grid items-baseline gap-2 border-b border-burgundy/40 py-6 md:grid-cols-12">
+            <li key={num} className="border-b border-burgundy/40 py-6">
               <Reveal delay={i * 0.05}>
               <div className="grid items-baseline gap-2 md:grid-cols-12">
-              <span className="font-mono text-sm text-rose md:col-span-1">
-                {num}
-              </span>
+                <span className="font-mono text-sm text-rose md:col-span-1">
+                  {num}
+                </span>
 
-              <h3 className="font-display text-2xl text-cream md:col-span-4">
-                {title}
-              </h3>
+                <h3 className="font-display text-2xl text-cream md:col-span-4">
+                  {title}
+                </h3>
 
-              <p className="text-muted md:col-span-7">{text}</p>
-            </div>
+                <p className="text-muted md:col-span-7">{text}</p>
+              </div>
             </Reveal>
           </li>
         ))}
