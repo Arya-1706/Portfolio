@@ -1,18 +1,31 @@
 import mongoose from 'mongoose';
 import dns from 'node:dns';
 
-// Only needed on networks where SRV lookups fail (querySrv ECONNREFUSED)
 if (process.env.DNS_SERVERS) {
-  dns.setServers(process.env.DNS_SERVERS.split(',').map((s) => s.trim()));
+  dns.setServers(
+    process.env.DNS_SERVERS.split(',').map((s) => s.trim())
+  );
 }
 
-export const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
+let connectionPromise;
 
-    console.log(`MongoDB connected: ${conn.connection.host}`);
-  } catch (err) {
-    console.error('MongoDB connection failed:', err.message);
-    process.exit(1);
+export const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
   }
+
+  if (!connectionPromise) {
+    connectionPromise = mongoose
+      .connect(process.env.MONGO_URI)
+      .then((conn) => {
+        console.log(`MongoDB connected: ${conn.connection.host}`);
+        return conn;
+      })
+      .catch((error) => {
+        connectionPromise = null;
+        throw error;
+      });
+  }
+
+  return connectionPromise;
 };

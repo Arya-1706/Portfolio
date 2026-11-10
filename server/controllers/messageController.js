@@ -1,4 +1,3 @@
-
 import Message from '../models/Message.js';
 import { sendNotification } from '../utils/mailer.js';
 
@@ -6,22 +5,27 @@ import { sendNotification } from '../utils/mailer.js';
 export const createMessage = async (req, res) => {
   const { name, email, body } = req.body;
 
+  // 1. Save the message in MongoDB
   const message = await Message.create({
     name,
     email,
-    body
+    body,
   });
 
-  // Fire and forget: email failure should not break the form
-  sendNotification({ name, email, body }).catch((err) =>
-    console.error('Mail failed:', err.message)
-  );
+  // 2. Attempt email notification
+  try {
+    await sendNotification({ name, email, body });
+  } catch (err) {
+    console.error('Mail failed:', err.message);
+  }
 
+  // 3. Respond after the notification attempt
   res.status(201).json({
     message: 'Thanks, your message was sent.',
-    id: message._id
+    id: message._id,
   });
 };
+
 
 // GET all messages
 export const listMessages = async (req, res) => {
